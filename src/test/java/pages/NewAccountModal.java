@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,11 +14,15 @@ public class NewAccountModal extends BasePage {
     public NewAccountModal(WebDriver driver) {
         super(driver);
     }
+
+    @Step
     public void open() {
         driver.get("https://tms9-dev-ed.develop.lightning.force.com/lightning/o/Account/new");
         wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//*[@name='SaveEdit']")));
     }
+
+    @Step
     public void createAccount(String name, String phoneNumber, String fax, String website, String rating, String type,
                               String billingStreet, String shippingStreet){
         new Input(driver, "Account Name").write(name);
@@ -31,6 +36,8 @@ public class NewAccountModal extends BasePage {
         new TextArea(driver,"Billing Street").write(billingStreet);
         new TextArea(driver,"Shipping Street").write(shippingStreet);
     }
+
+    @Step
     public void clickSaveButton(){
         driver.findElement(By.xpath("//*[@name='SaveEdit']")).click();
     }
