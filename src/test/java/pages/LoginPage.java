@@ -18,6 +18,18 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    @Override
+    public LoginPage open() {
+        driver.get(BASE_URL);
+        return this;
+    }
+
+    @Override
+    public LoginPage isPageOpened() {
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(LOGIN_BUTTON)));
+        return this;
+    }
+
     public String getAdminName() {
         return adminName;
     }
@@ -26,20 +38,12 @@ public class LoginPage extends BasePage {
         return adminPassword;
     }
 
-    @Step("Opening the login page")
-    public void openLoginPage() {
-        driver.get(BASE_URL);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(LOGIN_BUTTON));
-    }
-
-    @Step("Input name: {userName} and password: {password) for login action")
-    public void fillInLoginCredentials(String userName, String password) {
+    @Step("Input name: {userName} and password: {password) and click to the 'Log in' button for login action")
+    public HomePage login(String userName, String password) {
         driver.findElement(USER_NAME_FIELD).sendKeys(userName);
         driver.findElement(PASSWORD_FIELD).sendKeys(password);
+        driver.findElement(LOGIN_BUTTON).click();
+        return new HomePage(driver);
     }
 
-    @Step("Click to the 'Log in' button")
-    public void clickLogInButton() {
-        driver.findElement(LOGIN_BUTTON).click();
-    }
 }

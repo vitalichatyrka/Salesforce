@@ -1,25 +1,25 @@
 package tests;
 
+import dto.Account;
+import dto.AccountFactory;
 import org.testng.annotations.Test;
 
 public class AccountTest extends BaseTest {
 
     @Test
     public void checkAccountCreation() {
-        loginPage.openLoginPage();
-        loginPage.fillInLoginCredentials(loginPage.getAdminName(), loginPage.getAdminPassword());
-        loginPage.clickLogInButton();
+        Account account = AccountFactory.getAccount("Cold");
+        loginStep.auth(loginPage.getAdminName(), loginPage.getAdminPassword());
+        accountStep.createAccount(account);
+    }
 
-        newAccountModal.open();
-        newAccountModal.createAccount(
-                "Vitali4",
-                "+375291891200",
-                "+375171234566",
-                "www.qa-auto.com",
-                "Cold",
-                "Prospect",
-                "12 Uborevicha street",
-                "13 Kolesnikova street");
-        newAccountModal.clickSaveButton();
+    @Test
+    public void createdAccountIsDisplayedInAccountsList() {
+        Account account = AccountFactory.getAccount("Cold");
+        loginStep.auth(loginPage.getAdminName(), loginPage.getAdminPassword());
+        accountStep.createAccount(account);
+        accountListPage.open()
+                .isPageOpened();
+        softAssert.assertTrue(accountListPage.findCreatedAccountLink(account.getName()).isDisplayed());
     }
 }

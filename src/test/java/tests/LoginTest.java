@@ -3,15 +3,16 @@ package tests;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertTrue;
+
 public class LoginTest extends BaseTest {
 
     @Test
     public void checkSuccessLogin() {
-        loginPage.openLoginPage();
-        loginPage.fillInLoginCredentials(loginPage.getAdminName(), loginPage.getAdminPassword());
-        loginPage.clickLogInButton();
-        softAssert.assertTrue(driver.findElement(
+        loginPage.open()
+                .login(loginPage.getAdminName(), loginPage.getAdminPassword())
+                .isPageOpened();
+        assertTrue(driver.findElement(
                 By.xpath("//div[@role='tablist']")).isDisplayed());
     }
-
 }

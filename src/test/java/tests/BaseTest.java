@@ -8,8 +8,10 @@ import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
+import pages.AccountListPage;
 import pages.LoginPage;
-import pages.NewAccountModal;
+import steps.AccountStep;
+import steps.LoginStep;
 import utils.TestListener;
 
 import java.time.Duration;
@@ -17,13 +19,16 @@ import java.util.HashMap;
 
 import static utils.AllureUtils.takeScreenshot;
 
+
 @Listeners(TestListener.class)
 public class BaseTest {
 
     WebDriver driver;
     SoftAssert softAssert;
-    NewAccountModal newAccountModal;
     LoginPage loginPage;
+    LoginStep loginStep;
+    AccountStep accountStep;
+    AccountListPage accountListPage;
 
     @Parameters({"browser"})
     @BeforeMethod(description = "Open browser")
@@ -46,8 +51,10 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
         softAssert = new SoftAssert();
-        newAccountModal = new NewAccountModal(driver);
         loginPage = new LoginPage(driver);
+        loginStep = new LoginStep(driver);
+        accountStep = new AccountStep(driver);
+        accountListPage = new AccountListPage(driver);
     }
 
     @AfterMethod(alwaysRun = true, description = "Closing browser")
