@@ -20,13 +20,13 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
-        log.info("======================================== FINISHED TEST %s Duration: {} {} ========================================%n", iTestResult.getName(),
+        log.info("======================================== FINISHED TEST {} Duration:  {} ========================================%n", iTestResult.getName(),
                 getExecutionTime(iTestResult));
     }
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
-        log.info("======================================== FAILED TEST %s Duration: {} {} ========================================%n", iTestResult.getName(),
+        log.info("======================================== FAILED TEST {} Duration:  {} ========================================%n", iTestResult.getName(),
                 getExecutionTime(iTestResult));
         ITestContext context = iTestResult.getTestContext();
         WebDriver driver = (WebDriver) context.getAttribute("driver");
