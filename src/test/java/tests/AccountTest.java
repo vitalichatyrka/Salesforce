@@ -2,6 +2,7 @@ package tests;
 
 import dto.Account;
 import dto.AccountFactory;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class AccountTest extends BaseTest {
@@ -20,6 +21,6 @@ public class AccountTest extends BaseTest {
         accountStep.createAccount(account);
         accountListPage.open()
                 .isPageOpened();
-        softAssert.assertTrue(accountListPage.findCreatedAccountLink(account.getName()).isDisplayed());
+        Assert.assertTrue(accountListPage.findCreatedAccountLink(account.getName()).isDisplayed());
     }
 }

@@ -29,8 +29,13 @@ public class LoginPage extends BasePage {
 
     @Override
     public LoginPage isPageOpened() {
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(LOGIN_BUTTON)));
-        log.info("Login Page is opened");
+        try {
+            wait.until(ExpectedConditions.visibilityOf(driver.findElement(LOGIN_BUTTON)));
+            log.info("Login Page is opened");
+        } catch (Exception e) {
+            log.error("Login Page is NOT opened: " + e.getMessage(), e);
+            throw new AssertionError("Login Page did not open as expected", e);
+        }
         return this;
     }
 
